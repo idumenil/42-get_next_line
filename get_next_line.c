@@ -6,7 +6,7 @@
 /*   By: idumenil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 10:58:18 by idumenil          #+#    #+#             */
-/*   Updated: 2023/05/03 15:54:14 by idumenil         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:46:54 by idumenil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	*ft_next(char *buffer)
 
 char	*ft_line(char *buffer)
 {
-	char	*line;
 	int		i;
+	char	*line;
 
 	i = 0;
 	if (!buffer[i])
@@ -76,46 +76,45 @@ char	ft_read_file(int fd, char **stash)
 		*stash = ft_calloc(1, sizeof(char));
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	nbytes_read = 1;
-    while (nbytes_read > 0)
-    {
-        nbytes_read = read(fd, buffer, BUFFER_SIZE);
-        if (nbytes_read == -1)
-            {
-                free(buffer);
-                return (-1); // Error reading file
-            }
-	buffer[nbytes_read] = '\0'; // Add null terminator
-	*stash = ft_free(buffer, *stash);
-	if (ft_strchr(*stash, '\n'))
-		break;
-    }
-    free(buffer);
-    if (nbytes_read == 0 && !(*stash)[0])
-    {
-        free(*stash);
-        *stash = NULL;
-    }
-    return (nbytes_read);
+	while (nbytes_read > 0)
+	{
+		nbytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (nbytes_read == -1)
+		{
+			free(buffer);
+			return (-1);
+		}
+		buffer[nbytes_read] = '\0';
+		*stash = ft_free(buffer, *stash);
+		if (ft_strchr(*stash, '\n'))
+			break ;
+	}
+	if (nbytes_read == 0 && !(*stash[0]))
+	{
+		free(*stash);
+		*stash = NULL;
+	}
+	return (nbytes_read);
 }
 
 char	*get_next_line(int fd)
 {
-	static char *stash;
-	char 		*line;
-	int 	read_result;
-	
+	static char	*stash;
+	char		*line;
+	int			read_result;
+
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
-		return (NULL); // Invalid file descriptor or buffer size
+		return (NULL);
 	read_result = ft_read_file(fd, &stash);
 	if (read_result == -1)
-		return (NULL); // Error reading file
-
+		return (NULL);
 	if (read_result == 0 && !stash)
-		return (NULL); // End of file
+		return (NULL);
 	line = ft_line(stash);
 	stash = ft_next(stash);
 	return (line);
 }
+
 
 #include <fcntl.h>  // open()
 #include <stdio.h>
@@ -123,7 +122,7 @@ int main(void)
 {
 	int fd1;
 	char *line;
-	
+
 	fd1 = open("fichier1", O_RDONLY);
 	line = get_next_line(fd1);
 	while (line)
