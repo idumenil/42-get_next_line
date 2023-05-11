@@ -6,7 +6,7 @@
 /*   By: idumenil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 10:59:36 by idumenil          #+#    #+#             */
-/*   Updated: 2023/05/01 11:31:21 by idumenil         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:45:21 by idumenil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stddef.h>
 
-#define BUFFER_SIZE 1024
+# define BUFFER_SIZE 1024
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
