@@ -25,6 +25,16 @@ char	*ft_strchr(const char *string, int searchedChar)
 		return (NULL);
 }
 
+size_t	ft_strlen(const char *theString)
+{
+	int	i;
+
+	i = 0;
+	while (theString[i])
+		i++;
+	return (i);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		sizetotal;
@@ -53,8 +63,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-
-
 void	ft_bzero(void *s, size_t n)
 {
 	char	*str;
@@ -67,16 +75,6 @@ void	ft_bzero(void *s, size_t n)
 		str[i] = '\0';
 		i++;
 	}
-}
-
-size_t	ft_strlen(const char *theString)
-{
-	int	i;
-
-	i = 0;
-	while (theString[i])
-		i++;
-	return (i);
 }
 
 void	*ft_calloc(size_t elementCount, size_t elementSize)
